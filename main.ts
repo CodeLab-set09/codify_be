@@ -1,5 +1,6 @@
 import { Application, NextFunction, Request, Response } from "express";
 import user from "./router/userRouter";
+import blog from "./router/blogRouter";
 import passport from "passport";
 import "./utils/strategies/localStrategy";
 import { iUserData } from "./utils/interfaces";
@@ -31,6 +32,7 @@ export const mainApp = async (app: Application) => {
 
     app.get("/", defaultRoute);
     app.use("/api", user);
+    app.use("/api", blog);
 
     // PASSPORT LOGIN
     app.post(
@@ -56,8 +58,8 @@ export const mainApp = async (app: Application) => {
       "/api/login/start",
       passport.authenticate("local"),
       function (req: Request, res: Response, next: NextFunction) {
-        console.log(req.session);
-        console.log(req.user);
+        // console.log(req.session);
+        // console.log(req.user);
 
         return res.status(200).json({
           message: "Logged in successfully!",

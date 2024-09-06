@@ -17,3 +17,12 @@ export const createblog = async (req: Request, res: Response) => {
     return res.status(404).json({ message: error.message });
   }
 };
+
+export const readAllblog = async (req: Request, res: Response) => {
+  try {
+    const blog = blogdata.find();
+    return res.status(201).json({ message: "all blog gotten", data: blog });
+  } catch (error: any) {
+    return res.status(404).json({ message: error.message });
+  }
+};
