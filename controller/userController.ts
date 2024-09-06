@@ -6,7 +6,7 @@ import crypto from "crypto";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, userName } = req.body;
     const salt = await bcrypt.genSalt(10);
 
     const token = crypto.randomBytes(3).toString("hex");
@@ -14,6 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
     const hashed = await bcrypt.hash(password, salt);
     const user = await userMOdel.create({
       email,
+      userName,
       password: hashed,
       verifyToken: token,
     });
