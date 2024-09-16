@@ -18,3 +18,16 @@ interface iBlog {
   content: string;
 }
 export interface iBlogdata extends iBlog, Document {}
+
+interface iData {
+  instruction: string;
+  result: string[];
+  output: string;
+  example: string;
+  question: string;
+  defaultcode: string;
+  url: string;
+  tag: string[];
+  usecase: string[];
+}
+export interface iDataData extends iData, Document {}
