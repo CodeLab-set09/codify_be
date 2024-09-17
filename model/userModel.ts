@@ -27,6 +27,5 @@ const userModel = model(
   )
 );
 
-
-export default model<iUserData>("users", userModel);
-
+export default userModel;
+// export default model<iUserData>("users", userModel);
