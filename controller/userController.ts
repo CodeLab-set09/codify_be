@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-import userMOdel from "../model/userMOdel";
+// import userModel from "../model/userMOdel";
 import bcrypt from "bcrypt";
 import { sendEmail } from "../utils/email";
 import crypto from "crypto";
+import userModel from "../model/userModel";
+// import userMOdel from "../model/userMOdel";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -12,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
     const token = crypto.randomBytes(3).toString("hex");
 
     const hashed = await bcrypt.hash(password, salt);
-    const user = await userMOdel.create({
+    const user = await userModel.create({
       email,
       userName,
       password: hashed,
@@ -34,10 +36,10 @@ export const verifyUserAccount = async (req: Request, res: Response) => {
     const { userID } = req.params;
     const { token } = req.body;
 
-    const accountUser = await userMOdel.findById(userID);
+    const accountUser = await userModel.findById(userID);
 
     if (accountUser?.verifyToken === token) {
-      const user = await userMOdel.findByIdAndUpdate(
+      const user = await userModel.findByIdAndUpdate(
         userID,
         {
           verifyToken: "",
@@ -63,10 +65,10 @@ export const forgetUserPassword = async (req: Request, res: Response) => {
 
     const token = crypto.randomBytes(3).toString("hex");
 
-    const getUser = await userMOdel.findOne({ email });
+    const getUser = await userModel.findOne({ email });
 
     if (getUser && getUser?.verify) {
-      const user = await userMOdel.findByIdAndUpdate(
+      const user = await userModel.findByIdAndUpdate(
         getUser?._id,
         {
           verifyToken: token,
@@ -95,10 +97,10 @@ export const resetUserPassword = async (req: Request, res: Response) => {
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(password, salt);
 
-    const getUser = await userMOdel.findById(userID);
+    const getUser = await userModel.findById(userID);
 
     if (getUser && getUser?.verify && getUser?.verifyToken !== "") {
-      const user = await userMOdel.findByIdAndUpdate(
+      const user = await userModel.findByIdAndUpdate(
         getUser?._id,
         {
           verifyToken: "",

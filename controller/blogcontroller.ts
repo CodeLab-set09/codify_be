@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import userMOdel from "../model/userMOdel";
+// import userMOdel from "../model/userMOdel";
 import bcrypt from "bcrypt";
 import { sendEmail } from "../utils/email";
 import crypto from "crypto";
