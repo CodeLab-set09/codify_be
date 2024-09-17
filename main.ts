@@ -14,6 +14,7 @@ import react from "./router/reactrouter";
 import passport from "passport";
 import "./utils/strategies/localStrategy";
 import { iUserData } from "./utils/interfaces";
+import router from "./router/userRouter";
 
 export const mainApp = async (app: Application) => {
   try {
@@ -53,6 +54,7 @@ export const mainApp = async (app: Application) => {
     app.use("/api", functions);
     app.use("/api", dsa);
     app.use("/api", react);
+    // app.use("/api", router);
 
     // PASSPORT LOGIN
     app.post(
