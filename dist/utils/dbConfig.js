@@ -11,17 +11,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dbConfig = exports.url = void 0;
 const mongoose_1 = require("mongoose");
+
 // export const url: string = "mongodb://127.0.0.1:27017/startUpDB";
 exports.url = "mongodb+srv://ghettodeveloper:ghettodeveloper@ghettodev.rj9cymn.mongodb.net/codeifyDB?retryWrites=true&w=majority&appName=GhettoDev";
 const dbConfig = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, mongoose_1.connect)(exports.url).then(() => {
             console.clear();
+
             console.log("Connected... ❤️❤️🚀🚀🎮🎮");
         });
     }
     catch (error) {
+
         console.log("Error connecting to database: ", error);
+
         process.exit(1);
     }
 });

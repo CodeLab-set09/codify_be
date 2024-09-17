@@ -13,7 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mainApp = void 0;
+
 const authRouter_1 = __importDefault(require("./router/authRouter"));
+
 const passport_1 = __importDefault(require("passport"));
 require("./utils/strategies/localStrategy");
 const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
@@ -38,7 +40,9 @@ const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
             }
         };
         app.get("/", defaultRoute);
+
         app.use("/api", authRouter_1.default);
+
         // PASSPORT LOGIN
         app.post("/api/login", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
             passport_1.default.authenticate("local", (err, user, info) => {

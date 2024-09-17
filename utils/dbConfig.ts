@@ -1,7 +1,8 @@
 import { connect } from "mongoose";
-// export const url: string = "mongodb://127.0.0.1:27017/startUpDB";
+
 export const url: string =
-  "mongodb+srv://ghettodeveloper:ghettodeveloper@ghettodev.rj9cymn.mongodb.net/codeifyDB?retryWrites=true&w=majority&appName=GhettoDev";
+  "mongodb+srv://skillscapeofficier:skillscapeofficier@cluster0.0dubq.mongodb.net/skillScapeDb?retryWrites=true&w=majority&appName=Cluster0";
+
 
 export const dbConfig = async () => {
   try {

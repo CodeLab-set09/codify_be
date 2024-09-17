@@ -1,4 +1,5 @@
 "use strict";
+
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -17,6 +18,7 @@ const storage = multer_1.default.diskStorage({
 });
 const upload = (0, multer_1.default)({ storage: storage }).single("upload");
 // const upload = multer().single("upload");
+
 const router = (0, express_1.Router)();
 router.route("/register").post(userController_1.createUser);
 router.route("/:userID/verify-account").patch(userController_1.verifyUserAccount);
