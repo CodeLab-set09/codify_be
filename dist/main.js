@@ -13,9 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mainApp = void 0;
-
-const authRouter_1 = __importDefault(require("./router/authRouter"));
-
+const userRouter_1 = __importDefault(require("./router/userRouter"));
+const blogRouter_1 = __importDefault(require("./router/blogRouter"));
+const typescriptrouter_1 = __importDefault(require("./router/typescriptrouter"));
+const htmlrouter_1 = __importDefault(require("./router/htmlrouter"));
+const cssrouter_1 = __importDefault(require("./router/cssrouter"));
+const questionrouter_1 = __importDefault(require("./router/questionrouter"));
+const arrayrouter_1 = __importDefault(require("./router/arrayrouter"));
+const numberrouter_1 = __importDefault(require("./router/numberrouter"));
+const looprouter_1 = __importDefault(require("./router/looprouter"));
+const functionrouter_1 = __importDefault(require("./router/functionrouter"));
+const dsarouter_1 = __importDefault(require("./router/dsarouter"));
+const reactrouter_1 = __importDefault(require("./router/reactrouter"));
 const passport_1 = __importDefault(require("passport"));
 require("./utils/strategies/localStrategy");
 const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
@@ -40,9 +49,19 @@ const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
             }
         };
         app.get("/", defaultRoute);
-
-        app.use("/api", authRouter_1.default);
-
+        app.use("/api", userRouter_1.default);
+        app.use("/api", blogRouter_1.default);
+        app.use("/api", typescriptrouter_1.default);
+        app.use("/api", htmlrouter_1.default);
+        app.use("/api", cssrouter_1.default);
+        app.use("/api", questionrouter_1.default);
+        app.use("/api", arrayrouter_1.default);
+        app.use("/api", numberrouter_1.default);
+        app.use("/api", looprouter_1.default);
+        app.use("/api", functionrouter_1.default);
+        app.use("/api", dsarouter_1.default);
+        app.use("/api", reactrouter_1.default);
+        // app.use("/api", router);
         // PASSPORT LOGIN
         app.post("/api/login", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
             passport_1.default.authenticate("local", (err, user, info) => {
@@ -58,8 +77,8 @@ const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
         }));
         // BACKUP-PASSPORT LOGIN
         app.post("/api/login/start", passport_1.default.authenticate("local"), function (req, res, next) {
-            console.log(req.session);
-            console.log(req.user);
+            // console.log(req.session);
+            // console.log(req.user);
             return res.status(200).json({
                 message: "Logged in successfully!",
                 data: req.user,
