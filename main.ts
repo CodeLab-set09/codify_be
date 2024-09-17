@@ -13,6 +13,8 @@ import functions from "./router/functionrouter";
 import dsa from "./router/dsarouter";
 import react from "./router/reactrouter";
 
+import tailwind from "./router/tailwindrouter";
+
 import passport from "passport";
 import "./utils/strategies/localStrategy";
 import { iUserData } from "./utils/interfaces";
@@ -56,6 +58,7 @@ export const mainApp = async (app: Application) => {
     app.use("/api", functions);
     app.use("/api", dsa);
     app.use("/api", react);
+    app.use("/api", tailwind);
     // app.use("/api", router);
 
     // PASSPORT LOGIN
