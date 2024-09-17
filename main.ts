@@ -1,5 +1,5 @@
 import { Application, NextFunction, Request, Response } from "express";
-import user from "./router/userRouter";
+import user from "./router/authRouter";
 import passport from "passport";
 import "./utils/strategies/localStrategy";
 import { iUserData } from "./utils/interfaces";
