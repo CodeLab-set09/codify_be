@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const passport_1 = __importDefault(require("passport"));
 const passport_local_1 = require("passport-local");
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const userModel_1 = __importDefault(require("../../model/userModel"));
+const myUserModel_1 = __importDefault(require("../../model/myUserModel"));
 passport_1.default.use(new passport_local_1.Strategy({ usernameField: "email" }, function (email, password, done) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield userModel_1.default.findOne({ email });
+        const user = yield myUserModel_1.default.findOne({ email });
         if (!user) {
             return done(null, "user/email not found");
         }
