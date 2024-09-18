@@ -20,17 +20,6 @@ import router from "./router/userRouter";
 
 export const mainApp = async (app: Application) => {
   try {
-    app.use((req: Request, res: Response, next: NextFunction) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Credentials", "true");
-      res.header(
-        "Access-Control-Allow-Methods",
-        "GET, PUT, PATCH, POST, DELETE"
-      );
-      res.header("Access-Control-Allow-Headers", "Content-Type");
-      next();
-    });
-
     const defaultRoute = (req: Request, res: Response) => {
       try {
         return res.status(200).json({
