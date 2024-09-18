@@ -29,13 +29,6 @@ const passport_1 = __importDefault(require("passport"));
 require("./utils/strategies/localStrategy");
 const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        app.use((req, res, next) => {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Credentials", "true");
-            res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
-            res.header("Access-Control-Allow-Headers", "Content-Type");
-            next();
-        });
         const defaultRoute = (req, res) => {
             try {
                 return res.status(200).json({
