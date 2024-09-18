@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 const app: Application = express();
 const PORT: number = 2277;
 
-app.use(cors({ origin: ["*"] }));
+app.use(cors({ origin: ["http://localhost:5174/"] }));
 app.use(express.json());
 app.use(cookieParser("codifyPlatform"));
 
