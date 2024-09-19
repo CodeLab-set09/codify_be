@@ -11,7 +11,14 @@ const express_session_1 = __importDefault(require("express-session"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
 const PORT = 2277;
-app.use((0, cors_1.default)({ origin: ["*"] }));
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:5174");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    next();
+});
+app.use((0, cors_1.default)({ origin: "http://localhost:5174" }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)("codifyPlatform"));
 app.set("trust proxy", 1);

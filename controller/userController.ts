@@ -5,7 +5,6 @@ import { sendEmail } from "../utils/email";
 import crypto from "crypto";
 import authUserModel from "../model/myUserModel";
 
-
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { email, password, userName } = req.body;
@@ -16,7 +15,6 @@ export const createUser = async (req: Request, res: Response) => {
     const hashed = await bcrypt.hash(password, salt);
 
     const user = await authUserModel.create({
-
       email,
       userName,
       password: hashed,
@@ -38,12 +36,10 @@ export const verifyUserAccount = async (req: Request, res: Response) => {
     const { userID } = req.params;
     const { token } = req.body;
 
-
     const accountUser = await authUserModel.findById(userID);
 
     if (accountUser?.verifyToken === token) {
       const user = await authUserModel.findByIdAndUpdate(
-
         userID,
         {
           verifyToken: "",
@@ -69,12 +65,10 @@ export const forgetUserPassword = async (req: Request, res: Response) => {
 
     const token = crypto.randomBytes(3).toString("hex");
 
-
     const getUser = await authUserModel.findOne({ email });
 
     if (getUser && getUser?.verify) {
       const user = await authUserModel.findByIdAndUpdate(
-
         getUser?._id,
         {
           verifyToken: token,
@@ -103,12 +97,10 @@ export const resetUserPassword = async (req: Request, res: Response) => {
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(password, salt);
 
-
     const getUser = await authUserModel.findById(userID);
 
     if (getUser && getUser?.verify && getUser?.verifyToken !== "") {
       const user = await authUserModel.findByIdAndUpdate(
-
         getUser?._id,
         {
           verifyToken: "",
