@@ -119,3 +119,32 @@ export const resetUserPassword = async (req: Request, res: Response) => {
     return res.status(404).json({ message: error.message });
   }
 };
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { password, email, userName } = req.body;
+    const { userID } = req.params;
+    const salt = await bcrypt.genSalt(10);
+    const hashed = await bcrypt.hash(password, salt);
+    const getUser = await authUserModel.findById(userID);
+
+    if (getUser && getUser?.verify && getUser?.verifyToken !== "") {
+      const user = await authUserModel.findByIdAndUpdate(
+        getUser?._id,
+        {
+          password: hashed,
+          email,
+          userName,
+        },
+        { new: true }
+      );
+
+      return res
+        .status(201)
+        .json({ message: "updated successfully", data: user });
+    } else {
+      return res.status(404).json({ message: "user can't be found" });
+    }
+  } catch (error: any) {
+    return res.status(404).json({ message: error.message });
+  }
+};
