@@ -24,4 +24,5 @@ const userModel = new Schema<iUserData>(
   { timestamps: true }
 );
 
+export default model<iUserData>("users", userModel);
 
