@@ -31,6 +31,6 @@ router.route("/:userID/verify-account").patch(verifyUserAccount);
 
 router.route("/forget-password").patch(forgetUserPassword);
 router.route("/:userID/reset-password").patch(resetUserPassword);
-router.route("update-user/:userID").get(updateUser);
+router.route("/:userID/update-user").patch(updateUser);
 
 export default router;
