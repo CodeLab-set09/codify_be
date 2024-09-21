@@ -17,8 +17,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use(cors({ origin: "http://localhost:5174" }));
 
-app.use(cors({ origin: 'http://localhost:5173' }));
-
 app.use(express.json());
 app.use(cookieParser("codifyPlatform"));
 
