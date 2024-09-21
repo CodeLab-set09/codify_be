@@ -119,32 +119,52 @@ export const resetUserPassword = async (req: Request, res: Response) => {
     return res.status(404).json({ message: error.message });
   }
 };
-export const updateUser = async (req: Request, res: Response) => {
+
+// export const userUpdate = async (req: Request, res: Response) => {
+//   const { userID } = req.params;
+//   const { userName, email } = req.body;
+//   const getUser = await authUserModel.findById(userID);
+//   try {
+//     if (getUser) {
+//       const user = await authUserModel.findByIdAndUpdate(userID, {
+//         userName,
+//         email,
+//       });
+//       return res
+//         .status(200)
+//         .json({ message: "updated successfully", data: user });
+//     } else {
+//       return res.status(404).json({ message: "user can't be found" });
+//     }
+//   } catch (error: any) {
+//     res.status(404).json({
+//       error: error.message,
+//     });
+//   }
+// };
+
+export const userUpdate = async (req: Request, res: Response) => {
+  const { userID } = req.params;
+  const { userName, email } = req.body;
+
   try {
-    const { password, email, userName } = req.body;
-    const { userID } = req.params;
-    const salt = await bcrypt.genSalt(10);
-    const hashed = await bcrypt.hash(password, salt);
-    const getUser = await authUserModel.findById(userID);
+    const user = await authUserModel.findByIdAndUpdate(
+      userID,
+      { userName, email },
+      { new: true } // Return the updated document
+    );
 
-    if (getUser && getUser?.verify && getUser?.verifyToken !== "") {
-      const user = await authUserModel.findByIdAndUpdate(
-        getUser?._id,
-        {
-          password: hashed,
-          email,
-          userName,
-        },
-        { new: true }
-      );
-
+    if (user) {
       return res
-        .status(201)
-        .json({ message: "updated successfully", data: user });
+        .status(200)
+        .json({ message: "Updated successfully", data: user });
     } else {
-      return res.status(404).json({ message: "user can't be found" });
+      return res.status(404).json({ message: "User can't be found" });
     }
   } catch (error: any) {
-    return res.status(404).json({ message: error.message });
+    console.error(error); // Log the error for debugging
+    return res
+      .status(500)
+      .json({ error: error.message || "Internal server error" });
   }
 };
