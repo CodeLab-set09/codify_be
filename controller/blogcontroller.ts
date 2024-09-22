@@ -7,9 +7,15 @@ import blogdata from "../model/blogmodel";
 
 export const createblog = async (req: Request, res: Response) => {
   try {
-    const { title, video, content, desc, image } = await req.body;
+    const { title, video, content, description, image } = await req.body;
 
-    const blog = blogdata.create({ title, video, content, desc, image });
+    const blog = await blogdata.create({
+      title,
+      video,
+      content,
+      description,
+      image,
+    });
     return res
       .status(201)
       .json({ message: "created successfully", data: blog });
