@@ -25,6 +25,7 @@ const looprouter_1 = __importDefault(require("./router/looprouter"));
 const functionrouter_1 = __importDefault(require("./router/functionrouter"));
 const dsarouter_1 = __importDefault(require("./router/dsarouter"));
 const reactrouter_1 = __importDefault(require("./router/reactrouter"));
+const tailwindrouter_1 = __importDefault(require("./router/tailwindrouter"));
 const passport_1 = __importDefault(require("passport"));
 require("./utils/strategies/localStrategy");
 const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
@@ -54,6 +55,7 @@ const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
         app.use("/api", functionrouter_1.default);
         app.use("/api", dsarouter_1.default);
         app.use("/api", reactrouter_1.default);
+        app.use("/api", tailwindrouter_1.default);
         // app.use("/api", router);
         // PASSPORT LOGIN
         app.post("/api/login", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {

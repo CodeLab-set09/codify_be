@@ -12,34 +12,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readAllblog = exports.createblog = void 0;
-const blogmodel_1 = __importDefault(require("../model/blogmodel"));
-const createblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.readalltailwindqueations = exports.createtailwindquestion = void 0;
+const tailwindmodel_1 = __importDefault(require("../model/tailwindmodel"));
+const createtailwindquestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { title, video, content, description, image } = yield req.body;
-        const blog = yield blogmodel_1.default.create({
-            title,
-            video,
-            content,
-            description,
-            image,
+        const { instruction, mainAnswer, output, example, question, defaultcode, url, tag, usecase, result, } = yield req.body;
+        const getD = yield tailwindmodel_1.default.create({
+            instruction,
+            result,
+            output,
+            example,
+            question,
+            defaultcode,
+            url,
+            tag,
+            usecase,
         });
         return res
             .status(201)
-            .json({ message: "created successfully", data: blog });
+            .json({ message: "created successfully", data: getD });
     }
     catch (error) {
         return res.status(404).json({ message: error.message });
     }
 });
-exports.createblog = createblog;
-const readAllblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createtailwindquestion = createtailwindquestion;
+const readalltailwindqueations = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const blog = blogmodel_1.default.find();
-        return res.status(201).json({ message: "all blog gotten", data: blog });
+        const getD = yield tailwindmodel_1.default.find();
+        return res
+            .status(201)
+            .json({ message: "created successfully", data: getD });
     }
     catch (error) {
         return res.status(404).json({ message: error.message });
     }
 });
-exports.readAllblog = readAllblog;
+exports.readalltailwindqueations = readalltailwindqueations;
