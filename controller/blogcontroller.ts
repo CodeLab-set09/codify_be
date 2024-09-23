@@ -3,17 +3,18 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { sendEmail } from "../utils/email";
 import crypto from "crypto";
-import blogdata from "../model/blogmodel";
+// import blogdata from "../model/blogmodel";
+import myBlogModel from "../model/blogmodel";
 
 export const createblog = async (req: Request, res: Response) => {
   try {
-    const { title, video, content, description, image } = await req.body;
+    const { title, video, content, desc, image } = req.body;
 
-    const blog = await blogdata.create({
+    const blog = await myBlogModel.create({
       title,
       video,
       content,
-      description,
+      desc,
       image,
     });
     return res
@@ -26,7 +27,7 @@ export const createblog = async (req: Request, res: Response) => {
 
 export const readAllblog = async (req: Request, res: Response) => {
   try {
-    const blog = blogdata.find();
+    const blog = myBlogModel.find();
     return res.status(201).json({ message: "all blog gotten", data: blog });
   } catch (error: any) {
     return res.status(404).json({ message: error.message });
