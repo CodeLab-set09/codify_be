@@ -3,28 +3,15 @@ import mycssModel from "../model/cssModel";
 
 export const createCss = async (req: Request, res: Response) => {
   try {
-    const {
-      instruction,
-      output,
-      example,
-      question,
-      defaultcode,
-      tag,
-      usecase,
-      result,
-    } = await req.body;
+    const { instruction, example, question, result } = await req.body;
     const getCss = await mycssModel.create({
       instruction,
       result,
-      output,
       example,
       question,
-      defaultcode,
-      tag,
-      usecase,
     });
     return res.status(201).json({
-      message: "user created",
+      message: "css created",
       data: getCss,
     });
   } catch (error: any) {

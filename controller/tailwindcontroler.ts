@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import myCssModel from "../model/cssmodel";
 import myTailwindModel from "../model/tailwindmodel";
 
 export const createtailwindquestion = async (req: Request, res: Response) => {
