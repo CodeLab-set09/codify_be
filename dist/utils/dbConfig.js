@@ -11,15 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dbConfig = exports.url = void 0;
 const mongoose_1 = require("mongoose");
-exports.url = "mongodb://127.0.0.1:27017/startUpDB";
+exports.url = "mongodb+srv://skillscapeofficier:skillscapeofficier@cluster0.0dubq.mongodb.net/skillScapeDb?retryWrites=true&w=majority&appName=Cluster0";
 const dbConfig = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, mongoose_1.connect)(exports.url).then(() => {
+            console.clear();
             console.log("Connected... ❤️❤️🚀🚀🎮🎮");
         });
     }
     catch (error) {
-        console.log("Error connecting to database");
+        console.log("Error connecting to database: ", error);
         process.exit(1);
     }
 });

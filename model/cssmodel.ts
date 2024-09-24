@@ -15,6 +15,6 @@ const cssModel = new Schema(
   { timestamps: true }
 );
 
-const myCssModel = models.css || model<iDataData>("css", cssModel);
+const mycssModel = models.array || model<iDataData>("cSSs", cssModel);
 
-export default myCssModel;
+export default mycssModel;

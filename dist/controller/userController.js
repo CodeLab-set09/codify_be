@@ -12,20 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetUserPassword = exports.forgetUserPassword = exports.verifyUserAccount = exports.createUser = void 0;
-// import userModel from "../model/userMOdel";
-const bcrypt_1 = __importDefault(require("bcrypt"));
-const email_1 = require("../utils/email");
-const crypto_1 = __importDefault(require("crypto"));
-const userModel_1 = __importDefault(require("../model/userModel"));
-// import userMOdel from "../model/userMOdel";
+
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password, userName } = req.body;
         const salt = yield bcrypt_1.default.genSalt(10);
         const token = crypto_1.default.randomBytes(3).toString("hex");
         const hashed = yield bcrypt_1.default.hash(password, salt);
-        const user = yield userModel_1.default.create({
+
             email,
             userName,
             password: hashed,
@@ -45,9 +39,7 @@ const verifyUserAccount = (req, res) => __awaiter(void 0, void 0, void 0, functi
     try {
         const { userID } = req.params;
         const { token } = req.body;
-        const accountUser = yield userModel_1.default.findById(userID);
-        if ((accountUser === null || accountUser === void 0 ? void 0 : accountUser.verifyToken) === token) {
-            const user = yield userModel_1.default.findByIdAndUpdate(userID, {
+
                 verifyToken: "",
                 verify: true,
             }, { new: true });
@@ -68,9 +60,7 @@ const forgetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, funct
     try {
         const { email } = req.body;
         const token = crypto_1.default.randomBytes(3).toString("hex");
-        const getUser = yield userModel_1.default.findOne({ email });
-        if (getUser && (getUser === null || getUser === void 0 ? void 0 : getUser.verify)) {
-            const user = yield userModel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
+
                 verifyToken: token,
             }, { new: true });
             // sendEmail(user);
@@ -93,9 +83,7 @@ const resetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const { userID } = req.params;
         const salt = yield bcrypt_1.default.genSalt(10);
         const hashed = yield bcrypt_1.default.hash(password, salt);
-        const getUser = yield userModel_1.default.findById(userID);
-        if (getUser && (getUser === null || getUser === void 0 ? void 0 : getUser.verify) && (getUser === null || getUser === void 0 ? void 0 : getUser.verifyToken) !== "") {
-            const user = yield userModel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
+
                 verifyToken: "",
                 password: hashed,
             }, { new: true });
@@ -112,3 +100,31 @@ const resetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.resetUserPassword = resetUserPassword;
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userID } = req.params;
+        const { name, email, password } = req.body;
+        const getUser = yield myUserModel_1.default.findById(userID);
+        if (getUser) {
+            const user = yield myUserModel_1.default.findByIdAndUpdate(getUser, {
+                name,
+                email,
+                password,
+            });
+            return res
+                .status(201)
+                .json({ message: "User update successfully", data: user });
+        }
+        else {
+            return res
+                .status(400) // Changed to 400 for a more appropriate error status
+                .json({ message: "deos not exist" });
+        }
+    }
+    catch (error) {
+        return res
+            .status(400) // Changed to 400 for a more appropriate error status
+            .json({ message: "User not update", error: error.message });
+    }
+});
+exports.updateUser = updateUser;

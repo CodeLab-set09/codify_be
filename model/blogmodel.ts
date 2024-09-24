@@ -22,5 +22,6 @@ const blogModel = new Schema<iBlogdata>(
   },
   { timestamps: true }
 );
+const myBlogModel = model<iBlogdata>("blogs", blogModel);
 
-export default model<iBlogdata>("blogs", blogModel);
+export default myBlogModel;

@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import myCssModel from "../model/cssmodel";
+import myTailwindModel from "../model/tailwindmodel";
 
-export const createcssquestion = async (req: Request, res: Response) => {
+export const createtailwindquestion = async (req: Request, res: Response) => {
   try {
     const {
       instruction,
@@ -15,7 +16,7 @@ export const createcssquestion = async (req: Request, res: Response) => {
       usecase,
       result,
     } = await req.body;
-    const getD = await myCssModel.create({
+    const getD = await myTailwindModel.create({
       instruction,
       result,
       output,
@@ -34,9 +35,9 @@ export const createcssquestion = async (req: Request, res: Response) => {
   }
 };
 
-export const readallcssqueations = async (req: Request, res: Response) => {
+export const readalltailwindqueations = async (req: Request, res: Response) => {
   try {
-    const getD = await myCssModel.find();
+    const getD = await myTailwindModel.find();
     return res
       .status(201)
       .json({ message: "created successfully", data: getD });
