@@ -22,4 +22,5 @@ router.route("/register").post(userController_1.createUser);
 router.route("/:userID/verify-account").patch(userController_1.verifyUserAccount);
 router.route("/forget-password").patch(userController_1.forgetUserPassword);
 router.route("/:userID/reset-password").patch(userController_1.resetUserPassword);
+router.route("/:userID/update-user").patch(userController_1.userUpdate);
 exports.default = router;

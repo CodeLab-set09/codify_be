@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetUserPassword = exports.forgetUserPassword = exports.verifyUserAccount = exports.createUser = void 0;
+exports.userUpdate = exports.resetUserPassword = exports.forgetUserPassword = exports.verifyUserAccount = exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const email_1 = require("../utils/email");
 const crypto_1 = __importDefault(require("crypto"));
@@ -110,3 +110,48 @@ const resetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.resetUserPassword = resetUserPassword;
+// export const userUpdate = async (req: Request, res: Response) => {
+//   const { userID } = req.params;
+//   const { userName, email } = req.body;
+//   const getUser = await authUserModel.findById(userID);
+//   try {
+//     if (getUser) {
+//       const user = await authUserModel.findByIdAndUpdate(userID, {
+//         userName,
+//         email,
+//       });
+//       return res
+//         .status(200)
+//         .json({ message: "updated successfully", data: user });
+//     } else {
+//       return res.status(404).json({ message: "user can't be found" });
+//     }
+//   } catch (error: any) {
+//     res.status(404).json({
+//       error: error.message,
+//     });
+//   }
+// };
+const userUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userID } = req.params;
+    const { userName, email } = req.body;
+    try {
+        const user = yield myUserModel_1.default.findByIdAndUpdate(userID, { userName, email }, { new: true } // Return the updated document
+        );
+        if (user) {
+            return res
+                .status(200)
+                .json({ message: "Updated successfully", data: user });
+        }
+        else {
+            return res.status(404).json({ message: "User can't be found" });
+        }
+    }
+    catch (error) {
+        console.error(error); // Log the error for debugging
+        return res
+            .status(500)
+            .json({ error: error.message || "Internal server error" });
+    }
+});
+exports.userUpdate = userUpdate;

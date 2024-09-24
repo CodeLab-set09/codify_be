@@ -18,7 +18,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "Content-Type");
     next();
 });
-app.use((0, cors_1.default)({ origin: ["http://localhost:5173", "https://just-codify.web.app"] }));
+app.use((0, cors_1.default)({ origin: ["http://localhost:5174", "https://just-codify.web.app/"] }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)("codifyPlatform"));
 app.set("trust proxy", 1);

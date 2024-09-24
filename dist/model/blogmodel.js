@@ -18,4 +18,5 @@ const blogModel = new mongoose_1.Schema({
         type: String,
     },
 }, { timestamps: true });
-exports.default = (0, mongoose_1.model)("blogs", blogModel);
+const myBlogModel = (0, mongoose_1.model)("blogs", blogModel);
+exports.default = myBlogModel;
