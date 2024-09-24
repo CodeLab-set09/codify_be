@@ -2,14 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const cssModel = new mongoose_1.Schema({
-    instruction: { type: String, required: true },
-    result: { type: [], required: true },
-    output: { type: String, required: true },
-    example: { type: String, required: true },
-    question: { type: String, required: true },
-    defaultcode: { type: String, required: true },
-    tag: { type: [], required: true },
-    usecase: { type: [], required: true },
+    instruction: { type: String },
+    result: { type: [] },
+    output: { type: String },
+    example: { type: String },
+    question: { type: String },
+    defaultcode: { type: String },
+    tag: { type: [] },
+    usecase: { type: [] },
 }, { timestamps: true });
-const myCssModel = mongoose_1.models.css || (0, mongoose_1.model)("css", cssModel);
+const myCssModel = mongoose_1.models.cssquestions || (0, mongoose_1.model)("cssquestions", cssModel);
 exports.default = myCssModel;

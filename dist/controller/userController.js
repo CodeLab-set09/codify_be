@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetUserPassword = exports.forgetUserPassword = exports.verifyUserAccount = exports.createUser = void 0;
+exports.updateUser = exports.resetUserPassword = exports.forgetUserPassword = exports.verifyUserAccount = exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const email_1 = require("../utils/email");
 const crypto_1 = __importDefault(require("crypto"));
@@ -110,3 +110,31 @@ const resetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.resetUserPassword = resetUserPassword;
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userID } = req.params;
+        const { name, email, password } = req.body;
+        const getUser = yield myUserModel_1.default.findById(userID);
+        if (getUser) {
+            const user = yield myUserModel_1.default.findByIdAndUpdate(getUser, {
+                name,
+                email,
+                password,
+            });
+            return res
+                .status(201)
+                .json({ message: "User update successfully", data: user });
+        }
+        else {
+            return res
+                .status(400) // Changed to 400 for a more appropriate error status
+                .json({ message: "deos not exist" });
+        }
+    }
+    catch (error) {
+        return res
+            .status(400) // Changed to 400 for a more appropriate error status
+            .json({ message: "User not update", error: error.message });
+    }
+});
+exports.updateUser = updateUser;
