@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 import { iUserData } from "./interfaces";
+import jwt from "jsonwebtoken";
 
 const GOOGLE_REFRESH_TOKEN =
   "1//04IFsTNSRYpifCgYIARAAGAQSNwF-L9IrQtk-MlkfLoRPTLeP5FSOQzJrACcEX_eb1cJvCzxgPB2RN2lDMrOit74TF1YMMp4PVjs";
@@ -36,13 +37,14 @@ export const sendEmail = async (user: iUserData) => {
         accessToken,
       },
     });
+    // const token = jwt.sign({ id: user?._id }, JSON_SECRET, { expiresIn: "2d" });
 
     const mailOptions = {
       from: `GhettoDev <${USER_MAIL}>`,
       to: user?.email,
       subject: "Test Email",
       text: "This is a test email",
-      html: `<b>This is a test email: ${user?.verifyToken}</b>`,
+      html: `<h1>This is a test email</h1>`,
     };
 
     await transporter.sendMail(mailOptions).then(() => {
