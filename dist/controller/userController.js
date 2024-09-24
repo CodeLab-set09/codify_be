@@ -13,18 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resetUserPassword = exports.forgetUserPassword = exports.verifyUserAccount = exports.createUser = void 0;
-const userMOdel_1 = __importDefault(require("../model/userMOdel"));
+// import userModel from "../model/userMOdel";
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const email_1 = require("../utils/email");
 const crypto_1 = __importDefault(require("crypto"));
+const userModel_1 = __importDefault(require("../model/userModel"));
+// import userMOdel from "../model/userMOdel";
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, password } = req.body;
+        const { email, password, userName } = req.body;
         const salt = yield bcrypt_1.default.genSalt(10);
         const token = crypto_1.default.randomBytes(3).toString("hex");
         const hashed = yield bcrypt_1.default.hash(password, salt);
-        const user = yield userMOdel_1.default.create({
+        const user = yield userModel_1.default.create({
             email,
+            userName,
             password: hashed,
             verifyToken: token,
         });
@@ -42,9 +45,9 @@ const verifyUserAccount = (req, res) => __awaiter(void 0, void 0, void 0, functi
     try {
         const { userID } = req.params;
         const { token } = req.body;
-        const accountUser = yield userMOdel_1.default.findById(userID);
+        const accountUser = yield userModel_1.default.findById(userID);
         if ((accountUser === null || accountUser === void 0 ? void 0 : accountUser.verifyToken) === token) {
-            const user = yield userMOdel_1.default.findByIdAndUpdate(userID, {
+            const user = yield userModel_1.default.findByIdAndUpdate(userID, {
                 verifyToken: "",
                 verify: true,
             }, { new: true });
@@ -65,9 +68,9 @@ const forgetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, funct
     try {
         const { email } = req.body;
         const token = crypto_1.default.randomBytes(3).toString("hex");
-        const getUser = yield userMOdel_1.default.findOne({ email });
+        const getUser = yield userModel_1.default.findOne({ email });
         if (getUser && (getUser === null || getUser === void 0 ? void 0 : getUser.verify)) {
-            const user = yield userMOdel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
+            const user = yield userModel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
                 verifyToken: token,
             }, { new: true });
             // sendEmail(user);
@@ -90,9 +93,9 @@ const resetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const { userID } = req.params;
         const salt = yield bcrypt_1.default.genSalt(10);
         const hashed = yield bcrypt_1.default.hash(password, salt);
-        const getUser = yield userMOdel_1.default.findById(userID);
+        const getUser = yield userModel_1.default.findById(userID);
         if (getUser && (getUser === null || getUser === void 0 ? void 0 : getUser.verify) && (getUser === null || getUser === void 0 ? void 0 : getUser.verifyToken) !== "") {
-            const user = yield userMOdel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
+            const user = yield userModel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
                 verifyToken: "",
                 password: hashed,
             }, { new: true });
