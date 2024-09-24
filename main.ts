@@ -19,6 +19,7 @@ import passport from "passport";
 import "./utils/strategies/localStrategy";
 import { iUserData } from "./utils/interfaces";
 import router from "./router/userRouter";
+import javascript from "./router/jsRouter";
 
 export const mainApp = async (app: Application) => {
   try {
@@ -37,6 +38,7 @@ export const mainApp = async (app: Application) => {
     app.get("/", defaultRoute);
     app.use("/api", user);
     app.use("/api", blog);
+    app.use("/api", javascript);
     app.use("/api", typescript);
     app.use("/api", html);
     app.use("/api", css);
