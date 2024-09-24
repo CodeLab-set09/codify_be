@@ -15,7 +15,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.use(cors({ origin: "http://localhost:5174" }));
+app.use(
+  cors({ origin: ["http://localhost:5174", "https://just-codify.web.app/"] })
+);
 
 app.use(express.json());
 app.use(cookieParser("codifyPlatform"));
