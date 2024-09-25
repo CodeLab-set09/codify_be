@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const csscontroer_1 = require("../controller/csscontroer");
+const cssController_1 = require("../controller/cssController");
 const router = (0, express_1.Router)();
-router.route("/create-css-question").post(csscontroer_1.createcssquestion);
-router.route("/get-all-css-question").get(csscontroer_1.readallcssqueations);
+router.route("/create-css-question").post(cssController_1.createCss);
+// router.route("/get-all-css-question").get(readallcssqueations);
 exports.default = router;

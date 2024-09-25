@@ -28,6 +28,7 @@ const reactrouter_1 = __importDefault(require("./router/reactrouter"));
 const tailwindrouter_1 = __importDefault(require("./router/tailwindrouter"));
 const passport_1 = __importDefault(require("passport"));
 require("./utils/strategies/localStrategy");
+const jsRouter_1 = __importDefault(require("./router/jsRouter"));
 const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const defaultRoute = (req, res) => {
@@ -45,6 +46,7 @@ const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
         app.get("/", defaultRoute);
         app.use("/api", userRouter_1.default);
         app.use("/api", blogRouter_1.default);
+        app.use("/api", jsRouter_1.default);
         app.use("/api", typescriptrouter_1.default);
         app.use("/api", htmlrouter_1.default);
         app.use("/api", cssrouter_1.default);
