@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import myCssModel from "../model/cssmodel";
 import myArrayModel from "../model/arraymodel";
 
 export const createarrayquestion = async (req: Request, res: Response) => {

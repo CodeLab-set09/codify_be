@@ -3,19 +3,18 @@ import { iDataData } from "../utils/interfaces";
 
 const cssModel = new Schema(
   {
-    instruction: { type: String },
-    result: { type: [] },
-    output: { type: String },
-    example: { type: String },
-    question: { type: String },
-    defaultcode: { type: String },
-    tag: { type: [] },
-    usecase: { type: [] },
+    instruction: { type: String, required: true },
+    result: { type: [], required: true },
+    output: { type: String, required: true },
+    example: { type: String, required: true },
+    question: { type: String, required: true },
+    defaultcode: { type: String, required: true },
+    tag: { type: [], required: true },
+    usecase: { type: [], required: true },
   },
   { timestamps: true }
 );
 
-const myCssModel =
-  models.cssquestions || model<iDataData>("cssquestions", cssModel);
+const mycssModel = models.array || model<iDataData>("cSSs", cssModel);
 
-export default myCssModel;
+export default mycssModel;

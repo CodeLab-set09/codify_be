@@ -120,51 +120,29 @@ export const resetUserPassword = async (req: Request, res: Response) => {
   }
 };
 
-// export const userUpdate = async (req: Request, res: Response) => {
-//   const { userID } = req.params;
-//   const { userName, email } = req.body;
-//   const getUser = await authUserModel.findById(userID);
-//   try {
-//     if (getUser) {
-//       const user = await authUserModel.findByIdAndUpdate(userID, {
-//         userName,
-//         email,
-//       });
-//       return res
-//         .status(200)
-//         .json({ message: "updated successfully", data: user });
-//     } else {
-//       return res.status(404).json({ message: "user can't be found" });
-//     }
-//   } catch (error: any) {
-//     res.status(404).json({
-//       error: error.message,
-//     });
-//   }
-// };
-
-export const userUpdate = async (req: Request, res: Response) => {
-  const { userID } = req.params;
-  const { userName, email } = req.body;
-
+export const updateUser = async (req: Request, res: Response) => {
   try {
-    const user = await authUserModel.findByIdAndUpdate(
-      userID,
-      { userName, email },
-      { new: true } // Return the updated document
-    );
+    const { userID } = req.params;
+    const { userName, password } = req.body;
 
-    if (user) {
+    const getUser = await authUserModel.findById(userID);
+    if (getUser) {
+      const user = await authUserModel.findByIdAndUpdate(getUser, {
+        userName,
+        password,
+      });
+
       return res
-        .status(200)
-        .json({ message: "Updated successfully", data: user });
+        .status(201)
+        .json({ message: "User update successfully", data: user });
     } else {
-      return res.status(404).json({ message: "User can't be found" });
+      return res
+        .status(400) // Changed to 400 for a more appropriate error status
+        .json({ message: "deos not exist" });
     }
   } catch (error: any) {
-    console.error(error); // Log the error for debugging
     return res
-      .status(500)
-      .json({ error: error.message || "Internal server error" });
+      .status(400) // Changed to 400 for a more appropriate error status
+      .json({ message: "User not update", error: error.message });
   }
 };
