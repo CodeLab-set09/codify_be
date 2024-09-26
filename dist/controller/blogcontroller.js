@@ -36,7 +36,7 @@ const createblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createblog = createblog;
 const readAllblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const blog = blogmodel_1.default.find();
+        const blog = yield blogmodel_1.default.find();
         return res.status(201).json({ message: "all blog gotten", data: blog });
     }
     catch (error) {
