@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import mycssModel from "../model/cssmodel";
+import myModelCss from "../model/cssmodel";
 
 export const createCss = async (req: Request, res: Response) => {
   try {
