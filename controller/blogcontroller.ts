@@ -10,6 +10,9 @@ export const createblog = async (req: Request, res: Response) => {
   try {
     const { title, video, content, desc, image } = req.body;
 
+<<<<<<< HEAD
+    const blog = await blogdata.create({ title, video, content, desc, image });
+=======
     const blog = await myBlogModel.create({
       title,
       video,
@@ -17,6 +20,7 @@ export const createblog = async (req: Request, res: Response) => {
       desc,
       image,
     });
+>>>>>>> 89420707abb864449b1cc65267cad73e05313498
     return res
       .status(201)
       .json({ message: "created successfully", data: blog });
