@@ -1,30 +1,17 @@
 import { Request, Response } from "express";
-import mycssModel from "../model/cssModel";
+import mycssModel from "../model/cssmodel";
 
 export const createCss = async (req: Request, res: Response) => {
   try {
-    const {
-      instruction,
-      output,
-      example,
-      question,
-      defaultcode,
-      tag,
-      usecase,
-      result,
-    } = await req.body;
-    const getCss = await mycssModel.create({
+    const { instruction, example, question, result } = await req.body;
+    const getCss = await myModelCss.create({
       instruction,
       result,
-      output,
       example,
       question,
-      defaultcode,
-      tag,
-      usecase,
     });
     return res.status(201).json({
-      message: "user created",
+      message: "css questions created",
       data: getCss,
     });
   } catch (error: any) {
@@ -32,5 +19,16 @@ export const createCss = async (req: Request, res: Response) => {
       message: "CSS not created",
       error: error.message,
     });
+  }
+};
+
+export const getallCssQuestions = async (req: Request, res: Response) => {
+  try {
+    const getD = await myModelCss.find();
+    return res
+      .status(201)
+      .json({ message: "all css questions gotten", data: getD });
+  } catch (error: any) {
+    return res.status(404).json({ message: error.message });
   }
 };

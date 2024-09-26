@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import myCssModel from "../model/cssmodel";
 import myFunctionModel from "../model/functionmodel";
 
 export const createfunctionquestion = async (req: Request, res: Response) => {

@@ -1,13 +1,13 @@
 import { Router } from "express";
 import {
-  createcssquestion,
-  readallcssqueations,
-} from "../controller/csscontroer";
+  createtailwindquestion,
+  readalltailwindqueations,
+} from "../controller/tailwindcontroler";
 
 const router: Router = Router();
 
-router.route("/create-tailwind-question").post(createcssquestion);
+router.route("/create-tailwind-question").post(createtailwindquestion);
 
-router.route("/get-all-tailwind-question").get(readallcssqueations);
+router.route("/get-all-tailwind-question").get(readalltailwindqueations);
 
 export default router;
