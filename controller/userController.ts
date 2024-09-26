@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
-// import userModel from "../model/userMOdel";
+
 import bcrypt from "bcrypt";
 import { sendEmail } from "../utils/email";
 import crypto from "crypto";
-import userModel from "../model/userModel";
-// import userMOdel from "../model/userMOdel";
+import authUserModel from "../model/myUserModel";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -14,7 +13,8 @@ export const createUser = async (req: Request, res: Response) => {
     const token = crypto.randomBytes(3).toString("hex");
 
     const hashed = await bcrypt.hash(password, salt);
-    const user = await userModel.create({
+
+    const user = await authUserModel.create({
       email,
       userName,
       password: hashed,
@@ -36,10 +36,10 @@ export const verifyUserAccount = async (req: Request, res: Response) => {
     const { userID } = req.params;
     const { token } = req.body;
 
-    const accountUser = await userModel.findById(userID);
+    const accountUser = await authUserModel.findById(userID);
 
     if (accountUser?.verifyToken === token) {
-      const user = await userModel.findByIdAndUpdate(
+      const user = await authUserModel.findByIdAndUpdate(
         userID,
         {
           verifyToken: "",
@@ -65,10 +65,10 @@ export const forgetUserPassword = async (req: Request, res: Response) => {
 
     const token = crypto.randomBytes(3).toString("hex");
 
-    const getUser = await userModel.findOne({ email });
+    const getUser = await authUserModel.findOne({ email });
 
     if (getUser && getUser?.verify) {
-      const user = await userModel.findByIdAndUpdate(
+      const user = await authUserModel.findByIdAndUpdate(
         getUser?._id,
         {
           verifyToken: token,
@@ -97,10 +97,10 @@ export const resetUserPassword = async (req: Request, res: Response) => {
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(password, salt);
 
-    const getUser = await userModel.findById(userID);
+    const getUser = await authUserModel.findById(userID);
 
     if (getUser && getUser?.verify && getUser?.verifyToken !== "") {
-      const user = await userModel.findByIdAndUpdate(
+      const user = await authUserModel.findByIdAndUpdate(
         getUser?._id,
         {
           verifyToken: "",
@@ -117,5 +117,32 @@ export const resetUserPassword = async (req: Request, res: Response) => {
     }
   } catch (error: any) {
     return res.status(404).json({ message: error.message });
+  }
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { userID } = req.params;
+    const { userName, password } = req.body;
+
+    const getUser = await authUserModel.findById(userID);
+    if (getUser) {
+      const user = await authUserModel.findByIdAndUpdate(getUser, {
+        userName,
+        password,
+      });
+
+      return res
+        .status(201)
+        .json({ message: "User update successfully", data: user });
+    } else {
+      return res
+        .status(400) // Changed to 400 for a more appropriate error status
+        .json({ message: "deos not exist" });
+    }
+  } catch (error: any) {
+    return res
+      .status(400) // Changed to 400 for a more appropriate error status
+      .json({ message: "User not update", error: error.message });
   }
 };

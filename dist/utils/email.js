@@ -36,12 +36,13 @@ const sendEmail = (user) => __awaiter(void 0, void 0, void 0, function* () {
                 accessToken,
             },
         });
+        // const token = jwt.sign({ id: user?._id }, JSON_SECRET, { expiresIn: "2d" });
         const mailOptions = {
             from: `GhettoDev <${USER_MAIL}>`,
             to: user === null || user === void 0 ? void 0 : user.email,
             subject: "Test Email",
             text: "This is a test email",
-            html: `<b>This is a test email: ${user === null || user === void 0 ? void 0 : user.verifyToken}</b>`,
+            html: `<h1>This is a test email</h1>`,
         };
         yield transporter.sendMail(mailOptions).then(() => {
             console.log("Email sent successfully");

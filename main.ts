@@ -1,4 +1,5 @@
 import { Application, NextFunction, Request, Response } from "express";
+
 import user from "./router/userRouter";
 import blog from "./router/blogRouter";
 import typescript from "./router/typescriptrouter";
@@ -11,6 +12,9 @@ import loop from "./router/looprouter";
 import functions from "./router/functionrouter";
 import dsa from "./router/dsarouter";
 import react from "./router/reactrouter";
+
+import tailwind from "./router/tailwindrouter";
+
 import passport from "passport";
 import "./utils/strategies/localStrategy";
 import { iUserData } from "./utils/interfaces";
@@ -19,17 +23,6 @@ import javascript from "./router/jsRouter";
 
 export const mainApp = async (app: Application) => {
   try {
-    app.use((req: Request, res: Response, next: NextFunction) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Credentials", "true");
-      res.header(
-        "Access-Control-Allow-Methods",
-        "GET, PUT, PATCH, POST, DELETE"
-      );
-      res.header("Access-Control-Allow-Headers", "Content-Type");
-      next();
-    });
-
     const defaultRoute = (req: Request, res: Response) => {
       try {
         return res.status(200).json({
@@ -56,6 +49,7 @@ export const mainApp = async (app: Application) => {
     app.use("/api", functions);
     app.use("/api", dsa);
     app.use("/api", react);
+    app.use("/api", tailwind);
     // app.use("/api", router);
 
     // PASSPORT LOGIN
