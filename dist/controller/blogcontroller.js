@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readAllblog = exports.createblog = void 0;
+exports.readoneblog = exports.readAllblog = exports.createblog = void 0;
 // import blogdata from "../model/blogmodel";
 const blogmodel_1 = __importDefault(require("../model/blogmodel"));
 const createblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -44,3 +44,14 @@ const readAllblog = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.readAllblog = readAllblog;
+const readoneblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { blogID } = req.params;
+        const blog = blogmodel_1.default.findById(blogID);
+        return res.status(201).json({ message: "all blog gotten", data: blog });
+    }
+    catch (error) {
+        return res.status(404).json({ message: error.message });
+    }
+});
+exports.readoneblog = readoneblog;
