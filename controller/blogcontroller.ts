@@ -9,7 +9,7 @@ export const createblog = async (req: Request, res: Response) => {
   try {
     const { title, video, content, desc, image } = await req.body;
 
-    const blog = blogdata.create({ title, video, content, desc, image });
+    const blog = await blogdata.create({ title, video, content, desc, image });
     return res
       .status(201)
       .json({ message: "created successfully", data: blog });
