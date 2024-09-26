@@ -33,3 +33,13 @@ export const readAllblog = async (req: Request, res: Response) => {
     return res.status(404).json({ message: error.message });
   }
 };
+
+export const readoneblog = async (req: Request, res: Response) => {
+  try {
+    const{blogID} =  req.params
+    const blog = myBlogModel.findById(blogID);
+    return res.status(201).json({ message: "all blog gotten", data: blog });
+  } catch (error: any) {
+    return res.status(404).json({ message: error.message });
+  }
+};
