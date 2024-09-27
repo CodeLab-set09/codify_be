@@ -76,7 +76,7 @@ export const forgetUserPassword = async (req: Request, res: Response) => {
         { new: true }
       );
 
-      // sendEmail(user);
+      sendEmail(getUser);
 
       return res
         .status(201)
