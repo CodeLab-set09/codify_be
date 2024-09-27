@@ -18,5 +18,4 @@ const modelCss = new Schema(
   },
   { timestamps: true }
 );
-const myModelCss = models.cssQuests || model<iDataData>("cssQuests", modelCss);
-export default myModelCss;
+export default model<iDataData>("cssQuests", modelCss);
