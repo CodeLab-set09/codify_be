@@ -43,6 +43,7 @@
     "passport-local": "^1.0.0",
     "serverless-http": "^3.2.0",
     "simple-excel-to-json": "^2.3.0",
+    "sudo": "^1.0.3",
     "xlsx": "^0.18.5"
   }
 }
