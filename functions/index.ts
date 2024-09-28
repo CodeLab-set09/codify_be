@@ -4,6 +4,7 @@ import { mainApp } from "./main";
 import { dbConfig } from "./utils/dbConfig";
 import session from "express-session";
 import cookieParser from "cookie-parser";
+import ServerlessHttp from "serverless-http";
 const app: Application = express();
 const PORT: number = 2277;
 
@@ -39,3 +40,5 @@ app.listen(process.env.PORT || PORT, () => {
 
   dbConfig();
 });
+
+module.exports.handler = ServerlessHttp(app);

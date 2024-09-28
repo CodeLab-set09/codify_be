@@ -5,8 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn index.ts",
-    "start": " node ./dist/index.js",
-    "build": "tsc"
+    "start": " node ./functions/index.js",
+    "build": "netlify deploy --prod"
   },
   "keywords": [],
   "author": "",
@@ -36,9 +36,12 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.4",
     "multer": "^1.4.5-lts.1",
+    "netlify-cli": "^17.36.2",
+    "netlify-lambda": "^2.0.16",
     "nodemailer": "^6.9.14",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
+    "serverless-http": "^3.2.0",
     "simple-excel-to-json": "^2.3.0",
     "xlsx": "^0.18.5"
   }
