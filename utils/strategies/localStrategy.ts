@@ -4,16 +4,13 @@ import { Strategy } from "passport-local";
 import bcrypt from "bcrypt";
 import authUserModel from "../../model/myUserModel";
 
-
 passport.use(
   new Strategy({ usernameField: "email" }, async function (
     email,
     password,
     done
   ) {
-
     const user: any = await authUserModel.findOne({ email });
-
 
     if (!user) {
       return done(null, "user/email not found");

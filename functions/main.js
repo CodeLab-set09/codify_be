@@ -62,12 +62,15 @@ const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
         app.post("/api/login", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
             passport_1.default.authenticate("local", (err, user, info) => {
                 if (err)
-                    return res.status(404).json({ message: err.message });
+                    return res
+                        .status(404)
+                        .json({ message: err.message, status: 404 });
                 if (!user)
-                    return res.status(404).json({ message: info });
-                return res.status(200).json({
+                    return res.status(404).json({ message: info, status: 404 });
+                return res.status(201).json({
                     message: "Logged in successfully!",
                     data: user,
+                    status: 201,
                 });
             })(req, res, next);
         }));

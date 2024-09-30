@@ -71,7 +71,7 @@ const forgetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, funct
             const user = yield myUserModel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
                 verifyToken: token,
             }, { new: true });
-            // sendEmail(user);
+            (0, email_1.sendEmail)(getUser);
             return res
                 .status(201)
                 .json({ message: "created successfully", data: user });

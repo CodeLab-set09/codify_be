@@ -15,5 +15,4 @@ const modelCss = new mongoose_1.Schema({
         type: [],
     },
 }, { timestamps: true });
-const myModelCss = mongoose_1.models.cssQuests || (0, mongoose_1.model)("cssQuests", modelCss);
-exports.default = myModelCss;
+exports.default = (0, mongoose_1.model)("cssQuests", modelCss);

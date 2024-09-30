@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import myModelCss from "../model/cssModel";
-
+import modelCss from "../model/cssmodel";
 export const createCss = async (req: Request, res: Response) => {
   try {
     const { instruction, example, question, result } = await req.body;
-    const getCss = await myModelCss.create({
+    let vv = result.trim().split(",");
+    const getCss = await modelCss.create({
       instruction,
-      result,
+      result: vv,
       example,
       question,
     });
@@ -24,7 +24,7 @@ export const createCss = async (req: Request, res: Response) => {
 
 export const getallCssQuestions = async (req: Request, res: Response) => {
   try {
-    const getD = await myModelCss.find();
+    const getD = await modelCss.find();
     return res
       .status(201)
       .json({ message: "all css questions gotten", data: getD });
