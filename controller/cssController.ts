@@ -3,9 +3,10 @@ import modelCss from "../model/cssmodel";
 export const createCss = async (req: Request, res: Response) => {
   try {
     const { instruction, example, question, result } = await req.body;
+    let vv = result.trim().split(",");
     const getCss = await modelCss.create({
       instruction,
-      result,
+      result: vv,
       example,
       question,
     });
