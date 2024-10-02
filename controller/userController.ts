@@ -124,12 +124,15 @@ export const updateUser = async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
     const { userName, password } = req.body;
+    const salt = await bcrypt.genSalt(10);
+
+    const hashed = await bcrypt.hash(password, salt);
 
     const getUser = await authUserModel.findById(userID);
     if (getUser) {
       const user = await authUserModel.findByIdAndUpdate(getUser, {
         userName,
-        password,
+        password: hashed,
       });
 
       return res
