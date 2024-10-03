@@ -114,11 +114,13 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { userID } = req.params;
         const { userName, password } = req.body;
+        const salt = yield bcrypt_1.default.genSalt(10);
+        const hashed = yield bcrypt_1.default.hash(password, salt);
         const getUser = yield myUserModel_1.default.findById(userID);
         if (getUser) {
             const user = yield myUserModel_1.default.findByIdAndUpdate(getUser, {
                 userName,
-                password,
+                password: hashed,
             });
             return res
                 .status(201)
