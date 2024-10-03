@@ -59,6 +59,7 @@ const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
         // app.use("/api", tailwind);
         // app.use("/api", router);
         // PASSPORT LOGIN
+        // PASSPORT LOGIN
         app.post("/api/login", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
             passport_1.default.authenticate("local", (err, user, info) => {
                 if (err)
