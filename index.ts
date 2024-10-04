@@ -4,8 +4,9 @@ import { mainApp } from "./main";
 import { dbConfig } from "./utils/dbConfig";
 import session from "express-session";
 import cookieParser from "cookie-parser";
+
 const app: Application = express();
-const PORT: number = 2277;
+const PORT: number = 2288;
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", "https://just-codify.web.app/");
@@ -16,7 +17,14 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use(
-  cors({ origin: ["http://localhost:5174", "https://just-codify.web.app/"] })
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://just-codify.web.app/",
+      "https://just-codify.web.app",
+    ],
+  })
 );
 
 app.use(express.json());

@@ -51,18 +51,24 @@ export const mainApp = async (app: Application) => {
     // app.use("/api", router);
 
     // PASSPORT LOGIN
+    // PASSPORT LOGIN
     app.post(
       "/api/login",
       async (req: Request, res: Response, next: NextFunction) => {
         passport.authenticate(
           "local",
           (err: any, user: iUserData, info: string) => {
-            if (err) return res.status(404).json({ message: err.message });
-            if (!user) return res.status(404).json({ message: info });
+            if (err)
+              return res
+                .status(404)
+                .json({ message: err.message, status: 404 });
+            if (!user)
+              return res.status(404).json({ message: info, status: 404 });
 
-            return res.status(200).json({
+            return res.status(201).json({
               message: "Logged in successfully!",
               data: user,
+              status: 201,
             });
           }
         )(req, res, next);
