@@ -1,5 +1,6 @@
 import {
   createUser,
+  forgetPassword,
   forgetUserPassword,
   resetUserPassword,
   verifyUserAccount,
@@ -28,7 +29,7 @@ router.route("/register").post(createUser);
 
 router.route("/:userID/verify-account").patch(verifyUserAccount);
 
-router.route("/forget-password").patch(forgetUserPassword);
+router.route("/forget-password").patch(forgetPassword);
 router.route("/:userID/reset-password").patch(resetUserPassword);
 
 export default router;

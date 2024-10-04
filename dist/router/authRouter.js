@@ -20,6 +20,6 @@ const upload = (0, multer_1.default)({ storage: storage }).single("upload");
 const router = (0, express_1.Router)();
 router.route("/register").post(userController_1.createUser);
 router.route("/:userID/verify-account").patch(userController_1.verifyUserAccount);
-router.route("/forget-password").patch(userController_1.forgetUserPassword);
+router.route("/forget-password").patch(userController_1.forgetPassword);
 router.route("/:userID/reset-password").patch(userController_1.resetUserPassword);
 exports.default = router;
