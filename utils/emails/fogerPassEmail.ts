@@ -137,10 +137,9 @@ export const forgetPassEmail = async (user: any) => {
                                     <p style="margin-bottom: 10px; color:#080808">Welcome! <br> You are receiving this email because
                                         you requested to Reset your password.</p>
                                     <p style="margin-bottom: 10px; color:#080808">Click the button below to active your account.</p>
-                                    <p style="margin-bottom: 25px;  color:#080808">This is your verification token: ${user?.verifyToken} </p>
+                                    
                                     <a href="${url}"
-                                        style="background-color:#141414;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0 30px">Verify
-                                        Email</a>
+                                        style="background-color:#141414;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0 30px">Reset Password</a>
                                         
                                 </td>
                             </tr>
