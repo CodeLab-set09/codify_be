@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { sendEmail } from "../utils/email";
 import crypto from "crypto";
 import authUserModel from "../model/myUserModel";
+import { forgetPassEmail } from "../utils/emails/fogerPassEmail";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -86,6 +87,24 @@ export const forgetUserPassword = async (req: Request, res: Response) => {
     }
   } catch (error: any) {
     return res.status(404).json({ message: error.message });
+  }
+};
+
+export const forgetPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const findUser = await authUserModel.findOne({ email });
+    if (findUser) {
+      forgetPassEmail(findUser);
+      res.status(200).json({ message: "User found", data: findUser });
+    } else {
+      res.status(400).json({ message: "User not found" });
+    }
+  } catch (error: any) {
+    res.status(400).json({
+      message: "Error Occured",
+      error: error.message,
+    });
   }
 };
 

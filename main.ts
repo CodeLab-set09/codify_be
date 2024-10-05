@@ -51,6 +51,7 @@ export const mainApp = async (app: Application) => {
     // app.use("/api", router);
 
     // PASSPORT LOGIN
+    // PASSPORT LOGIN
     app.post(
       "/api/login",
       async (req: Request, res: Response, next: NextFunction) => {

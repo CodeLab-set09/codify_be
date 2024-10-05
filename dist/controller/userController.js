@@ -12,11 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.resetUserPassword = exports.forgetUserPassword = exports.verifyUserAccount = exports.createUser = void 0;
+exports.updateUser = exports.resetUserPassword = exports.forgetPassword = exports.forgetUserPassword = exports.verifyUserAccount = exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const email_1 = require("../utils/email");
 const crypto_1 = __importDefault(require("crypto"));
 const myUserModel_1 = __importDefault(require("../model/myUserModel"));
+const fogerPassEmail_1 = require("../utils/emails/fogerPassEmail");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password, userName } = req.body;
@@ -85,6 +86,26 @@ const forgetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.forgetUserPassword = forgetUserPassword;
+const forgetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { email } = req.body;
+        const findUser = yield myUserModel_1.default.findOne({ email });
+        if (findUser) {
+            (0, fogerPassEmail_1.forgetPassEmail)(findUser);
+            res.status(200).json({ message: "User found", data: findUser });
+        }
+        else {
+            res.status(400).json({ message: "User not found" });
+        }
+    }
+    catch (error) {
+        res.status(400).json({
+            message: "Error Occured",
+            error: error.message,
+        });
+    }
+});
+exports.forgetPassword = forgetPassword;
 const resetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { password } = req.body;
@@ -114,11 +135,13 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { userID } = req.params;
         const { userName, password } = req.body;
+        const salt = yield bcrypt_1.default.genSalt(10);
+        const hashed = yield bcrypt_1.default.hash(password, salt);
         const getUser = yield myUserModel_1.default.findById(userID);
         if (getUser) {
             const user = yield myUserModel_1.default.findByIdAndUpdate(getUser, {
                 userName,
-                password,
+                password: hashed,
             });
             return res
                 .status(201)
