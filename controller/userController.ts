@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-
 import bcrypt from "bcrypt";
 import { sendEmail } from "../utils/email";
 import crypto from "crypto";
 import authUserModel from "../model/myUserModel";
+import { forgetPassEmail } from "../utils/emails/fogerPassEmail";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -89,31 +89,52 @@ export const forgetUserPassword = async (req: Request, res: Response) => {
   }
 };
 
+export const forgetPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const findUser = await authUserModel.findOne({ email });
+    if (findUser) {
+      forgetPassEmail(findUser);
+      res.status(200).json({ message: "User found", data: findUser });
+    } else {
+      res.status(400).json({ message: "User not found" });
+    }
+  } catch (error: any) {
+    res.status(400).json({
+      message: "Error Occured",
+      error: error.message,
+    });
+  }
+};
+
 export const resetUserPassword = async (req: Request, res: Response) => {
   try {
-    const { password } = req.body;
     const { userID } = req.params;
+    const { password } = req.body;
+    const findUser = await authUserModel.findById(userID);
 
-    const salt = await bcrypt.genSalt(10);
-    const hashed = await bcrypt.hash(password, salt);
+    if (findUser) {
+      const passCheck = await bcrypt.compare(password, findUser.password!);
+      if (passCheck) {
+        res.status(400).json({
+          message: "You can't use same password",
+        });
+      } else {
+        const salt = await bcrypt.genSalt(10);
+        const hashed = await bcrypt.hash(password, salt);
+        const getD = await authUserModel.findByIdAndUpdate(
+          userID,
+          {
+            password: hashed,
+          },
+          { new: true }
+        );
 
-    const getUser = await authUserModel.findById(userID);
-
-    if (getUser && getUser?.verify && getUser?.verifyToken !== "") {
-      const user = await authUserModel.findByIdAndUpdate(
-        getUser?._id,
-        {
-          verifyToken: "",
-          password: hashed,
-        },
-        { new: true }
-      );
-
-      return res
-        .status(201)
-        .json({ message: "created successfully", data: user });
-    } else {
-      return res.status(404).json({ message: "user can't be found" });
+        res.status(200).json({
+          message: "Password Changed",
+          data: getD,
+        });
+      }
     }
   } catch (error: any) {
     return res.status(404).json({ message: error.message });
