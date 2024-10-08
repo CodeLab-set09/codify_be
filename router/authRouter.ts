@@ -1,7 +1,6 @@
 import {
   createUser,
   forgetPassword,
-  forgetUserPassword,
   resetUserPassword,
   verifyUserAccount,
 } from "../controller/userController";

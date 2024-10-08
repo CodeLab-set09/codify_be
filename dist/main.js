@@ -26,7 +26,7 @@ const dsarouter_1 = __importDefault(require("./router/dsarouter"));
 const reactrouter_1 = __importDefault(require("./router/reactrouter"));
 const passport_1 = __importDefault(require("passport"));
 require("./utils/strategies/localStrategy");
-const jsRouter_1 = __importDefault(require("./router/jsRouter"));
+const javaScriptrouter_1 = __importDefault(require("./router/javaScriptrouter"));
 const authRouter_1 = __importDefault(require("./router/authRouter"));
 const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -45,7 +45,7 @@ const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
         app.get("/", defaultRoute);
         app.use("/api", authRouter_1.default);
         app.use("/api", blogRouter_1.default);
-        app.use("/api", jsRouter_1.default);
+        app.use("/api", javaScriptrouter_1.default);
         app.use("/api", typescriptrouter_1.default);
         app.use("/api", htmlrouter_1.default);
         app.use("/api", cssrouter_1.default);
