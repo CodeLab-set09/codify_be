@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mainApp = void 0;
-const userRouter_1 = __importDefault(require("./router/userRouter"));
 const blogRouter_1 = __importDefault(require("./router/blogRouter"));
 const typescriptrouter_1 = __importDefault(require("./router/typescriptrouter"));
 const htmlrouter_1 = __importDefault(require("./router/htmlrouter"));
@@ -28,6 +27,7 @@ const reactrouter_1 = __importDefault(require("./router/reactrouter"));
 const passport_1 = __importDefault(require("passport"));
 require("./utils/strategies/localStrategy");
 const jsRouter_1 = __importDefault(require("./router/jsRouter"));
+const authRouter_1 = __importDefault(require("./router/authRouter"));
 const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const defaultRoute = (req, res) => {
@@ -43,7 +43,7 @@ const mainApp = (app) => __awaiter(void 0, void 0, void 0, function* () {
             }
         };
         app.get("/", defaultRoute);
-        app.use("/api", userRouter_1.default);
+        app.use("/api", authRouter_1.default);
         app.use("/api", blogRouter_1.default);
         app.use("/api", jsRouter_1.default);
         app.use("/api", typescriptrouter_1.default);

@@ -108,22 +108,27 @@ const forgetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.forgetPassword = forgetPassword;
 const resetUserPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { password } = req.body;
         const { userID } = req.params;
-        const salt = yield bcrypt_1.default.genSalt(10);
-        const hashed = yield bcrypt_1.default.hash(password, salt);
-        const getUser = yield myUserModel_1.default.findById(userID);
-        if (getUser && (getUser === null || getUser === void 0 ? void 0 : getUser.verify) && (getUser === null || getUser === void 0 ? void 0 : getUser.verifyToken) !== "") {
-            const user = yield myUserModel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
-                verifyToken: "",
-                password: hashed,
-            }, { new: true });
-            return res
-                .status(201)
-                .json({ message: "created successfully", data: user });
-        }
-        else {
-            return res.status(404).json({ message: "user can't be found" });
+        const { password } = req.body;
+        const findUser = yield myUserModel_1.default.findById(userID);
+        if (findUser) {
+            const passCheck = yield bcrypt_1.default.compare(password, findUser.password);
+            if (passCheck) {
+                res.status(400).json({
+                    message: "You can't use same password",
+                });
+            }
+            else {
+                const salt = yield bcrypt_1.default.genSalt(10);
+                const hashed = yield bcrypt_1.default.hash(password, salt);
+                const getD = yield myUserModel_1.default.findByIdAndUpdate(userID, {
+                    password: hashed,
+                }, { new: true });
+                res.status(200).json({
+                    message: "Password Changed",
+                    data: getD,
+                });
+            }
         }
     }
     catch (error) {
