@@ -16,7 +16,7 @@ import passport from "passport";
 import "./utils/strategies/localStrategy";
 import { iUserData } from "./utils/interfaces";
 
-import javascript from "./router/jsRouter";
+import javascript from "./router/javaScriptrouter";
 import router from "./router/authRouter";
 
 export const mainApp = async (app: Application) => {
