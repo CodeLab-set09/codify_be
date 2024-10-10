@@ -118,7 +118,7 @@ export const forgetPassEmail = async (user: any) => {
                         <tbody>
                             <tr>
                                 <td style="text-align: center; padding-bottom:25px">
-                                    <img style="height: 40px" src="https://res.cloudinary.com/duewdl1ua/image/upload/v1722432802/codebook_black_w1f3i7.png"
+                                    <img style="height: 40px" src="https://res.cloudinary.com/dv4dlmp4e/image/upload/v1728504303/codifyLogo_uqxywy.png"
                                             alt="logo">
                                 </td>
                             </tr>
@@ -128,7 +128,8 @@ export const forgetPassEmail = async (user: any) => {
                         <tbody>
                             <tr>
                                 <td style="padding: 30px 30px 15px 30px;">
-                                    <h2 style="font-size: 18px; color: #141414; font-weight: 600; margin: 0;">Reset Your Password</h2>
+                                    <h2 style="font-size: 18px; color: #141414; font-weight: 600; margin: 0;
+                                    display: flex; justify-content: center;">Reset Your Password</h2>
                                 </td>
                             </tr>
                             <tr>
@@ -136,7 +137,7 @@ export const forgetPassEmail = async (user: any) => {
                                     <p style="margin-bottom: 10px; color:#080808 ">Hi ${user?.userName},</p>
                                     <p style="margin-bottom: 10px; color:#080808">Welcome! <br> You are receiving this email because
                                         you requested to Reset your password.</p>
-                                    <p style="margin-bottom: 10px; color:#080808">Click the button below to active your account.</p>
+                                    <p style="margin-bottom: 10px; color:#080808">Click the button below to change your password.</p>
                                     
                                     <a href="${url}"
                                         style="background-color:#141414;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0 30px">Reset Password</a>
