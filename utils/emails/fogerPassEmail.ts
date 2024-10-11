@@ -14,7 +14,7 @@ const GOOGLE_URL = "https://developers.google.com/oauthplayground";
 const GOOGLE_SECRET_KEY = "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";
 const USER_MAIL = "ghettodeveloper@gmail.com";
 
-const LIVE_URL = `http://localhost:5174`;
+const LIVE_URL = `https://just-codify.web.app`;
 
 const oAuth = new google.auth.OAuth2(
   GOOGLE_CLIENT,
