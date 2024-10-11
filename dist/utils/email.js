@@ -45,8 +45,7 @@ const sendEmail = (user) => __awaiter(void 0, void 0, void 0, function* () {
         const mailOptions = {
             from: `GhettoDev <${USER_MAIL}>`,
             to: user === null || user === void 0 ? void 0 : user.email,
-            subject: "Test Email",
-            text: "This is a test email",
+            subject: "Verification",
             html: `
       <head>
     <meta charset="utf-8">
@@ -116,7 +115,7 @@ const sendEmail = (user) => __awaiter(void 0, void 0, void 0, function* () {
                         <tbody>
                             <tr>
                                 <td style="text-align: center; padding-bottom:25px">
-                                    <img style="height: 40px" src="https://res.cloudinary.com/duewdl1ua/image/upload/v1722432802/codebook_black_w1f3i7.png"
+                                    <img style="height: 40px" src="https://res.cloudinary.com/dv4dlmp4e/image/upload/v1728504303/codifyLogo_uqxywy.png"
                                             alt="logo">
                                 </td>
                             </tr>
@@ -137,7 +136,7 @@ const sendEmail = (user) => __awaiter(void 0, void 0, void 0, function* () {
                                         you have registered on our site.</p>
                                     <p style="margin-bottom: 10px; color:#080808">Click the button below to active your account.</p>
                                     <p style="margin-bottom: 25px;  color:#080808">This is your verification token: ${user === null || user === void 0 ? void 0 : user.verifyToken} </p>
-                                    <a href="${LIVE_URL}/${token}/verify"
+                                    <a href="${LIVE_URL}/verify-account/${token}"
                                         style="background-color:#141414;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0 30px">Verify
                                         Email</a>
                                         
