@@ -139,6 +139,7 @@ exports.resetUserPassword = resetUserPassword;
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID } = req.params;
+        console.log("updateuser", userID);
         const { userName, password } = req.body;
         const salt = yield bcrypt_1.default.genSalt(10);
         const hashed = yield bcrypt_1.default.hash(password, salt);
@@ -154,13 +155,13 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
         else {
             return res
-                .status(400) // Changed to 400 for a more appropriate error status
+                .status(404) // Changed to 400 for a more appropriate error status
                 .json({ message: "deos not exist" });
         }
     }
     catch (error) {
         return res
-            .status(400) // Changed to 400 for a more appropriate error status
+            .status(404) // Changed to 400 for a more appropriate error status
             .json({ message: "User not update", error: error.message });
     }
 });
