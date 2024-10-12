@@ -2,6 +2,7 @@ import {
   createUser,
   forgetPassword,
   resetUserPassword,
+  updateUser,
   verifyUserAccount,
 } from "../controller/userController";
 import multer from "multer";
@@ -30,5 +31,6 @@ router.route("/:userID/verify-account").patch(verifyUserAccount);
 
 router.route("/forget-password").patch(forgetPassword);
 router.route("/:userID/reset-password").patch(resetUserPassword);
+router.route("/:userID/update-password").patch(updateUser);
 
 export default router;
