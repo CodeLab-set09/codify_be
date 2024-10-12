@@ -144,7 +144,12 @@ export const resetUserPassword = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
+    console.log("updateuser", userID);
+
     const { userName, password } = req.body;
+    console.log("updateueser", userName);
+    console.log("updateueser", password);
+
     const salt = await bcrypt.genSalt(10);
 
     const hashed = await bcrypt.hash(password, salt);
@@ -161,12 +166,12 @@ export const updateUser = async (req: Request, res: Response) => {
         .json({ message: "User update successfully", data: user });
     } else {
       return res
-        .status(400) // Changed to 400 for a more appropriate error status
+        .status(404) // Changed to 400 for a more appropriate error status
         .json({ message: "deos not exist" });
     }
   } catch (error: any) {
     return res
-      .status(400) // Changed to 400 for a more appropriate error status
+      .status(404) // Changed to 400 for a more appropriate error status
       .json({ message: "User not update", error: error.message });
   }
 };
