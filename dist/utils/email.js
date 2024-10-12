@@ -116,7 +116,7 @@ const sendEmail = (user) => __awaiter(void 0, void 0, void 0, function* () {
                         <tbody>
                             <tr>
                                 <td style="text-align: center; padding-bottom:25px">
-                                    <img style="height: 40px" src="https://res.cloudinary.com/duewdl1ua/image/upload/v1722432802/codebook_black_w1f3i7.png"
+                                    <img style="height: 40px" src="https://res.cloudinary.com/dv4dlmp4e/image/upload/v1728504303/codifyLogo_uqxywy.png"
                                             alt="logo">
                                 </td>
                             </tr>

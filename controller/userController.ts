@@ -147,8 +147,6 @@ export const updateUser = async (req: Request, res: Response) => {
     console.log("updateuser", userID);
 
     const { userName, password } = req.body;
-    console.log("updateueser", userName);
-    console.log("updateueser", password);
 
     const salt = await bcrypt.genSalt(10);
 
