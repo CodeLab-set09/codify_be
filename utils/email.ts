@@ -46,8 +46,8 @@ export const sendEmail = async (user: iUserData) => {
     const mailOptions = {
       from: `GhettoDev <${USER_MAIL}>`,
       to: user?.email,
-      subject: "Test Email",
-      text: "This is a test email",
+      subject: "Verification",
+
       html: `
       <head>
     <meta charset="utf-8">
@@ -138,7 +138,7 @@ export const sendEmail = async (user: iUserData) => {
                                         you have registered on our site.</p>
                                     <p style="margin-bottom: 10px; color:#080808">Click the button below to active your account.</p>
                                     <p style="margin-bottom: 25px;  color:#080808">This is your verification token: ${user?.verifyToken} </p>
-                                    <a href="${LIVE_URL}/${token}/verify"
+                                    <a href="${LIVE_URL}/verify-account/${token}"
                                         style="background-color:#141414;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0 30px">Verify
                                         Email</a>
                                         
